@@ -64,55 +64,6 @@ blogs.post("/olustur", auth, upload.array("images", 10), async (req, res) => {
 });
 
 /* ================================
-   BLOG DETAY
-================================ */
-blogs.get("/:id", async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id).lean();
-    if (!post) return res.status(404).send("Blog bulunamadı");
-
-    const comments = await Comment.find({ post_id: post._id })
-      .sort({ date: -1 })
-      .lean();
-    res.render("pages/blogDetay", {
-      post,
-      comments,
-      isAuth: !!req.session.userId,
-      currentUserId: req.session.userId,
-      currentUsername: req.session.username,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Hata oluştu");
-  }
-});
-
-/* ================================
-   YORUM EKLE
-================================ */
-blogs.post("/:id/yorum", auth, async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id);
-    if (!post) return res.status(404).send("Blog bulunamadı");
-
-    const content = (req.body.content || "").trim();
-    if (!content) return res.redirect(`/blog/${post._id}`);
-
-    await Comment.create({
-      post_id: post._id,
-      user_id: req.session.userId,
-      username: req.session.username,
-      content,
-    });
-
-    res.redirect(`/blog/${post._id}`);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Yorum eklenirken hata oluştu");
-  }
-});
-
-/* ================================
    BLOG DÜZENLE (GET)
 ================================ */
 blogs.get("/:id/duzenle", auth, async (req, res) => {
@@ -230,6 +181,31 @@ blogs.post("/:id/sil", auth, async (req, res) => {
 });
 
 /* ================================
+   YORUM EKLE
+================================ */
+blogs.post("/:id/yorum", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).send("Blog bulunamadı");
+
+    const content = (req.body.content || "").trim();
+    if (!content) return res.redirect(`/blog/${post._id}`);
+
+    await Comment.create({
+      post_id: post._id,
+      user_id: req.session.userId,
+      username: req.session.username,
+      content,
+    });
+
+    res.redirect(`/blog/${post._id}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Yorum eklenirken hata oluştu");
+  }
+});
+
+/* ================================
    YORUM SİL
 ================================ */
 blogs.post("/:postId/yorum/:commentId/sil", auth, async (req, res) => {
@@ -271,6 +247,30 @@ blogs.post("/:postId/yorum/:commentId/duzenle", auth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Yorum düzenlenirken hata oluştu.");
+  }
+});
+
+/* ================================
+   BLOG DETAY
+================================ */
+blogs.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).lean();
+    if (!post) return res.status(404).send("Blog bulunamadı");
+
+    const comments = await Comment.find({ post_id: post._id })
+      .sort({ date: -1 })
+      .lean();
+    res.render("pages/blogDetay", {
+      post,
+      comments,
+      isAuth: !!req.session.userId,
+      currentUserId: req.session.userId,
+      currentUsername: req.session.username,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Hata oluştu");
   }
 });
 
