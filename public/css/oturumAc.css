@@ -100,19 +100,62 @@
   }
 }
 
-/* Şifremi Unuttum linki */
-.forgot-link {
+/* Alert kutuları */
+.login-alert {
+  width: 420px;
+  margin: 20px auto;
+  padding: 14px 20px;
+  border-radius: 12px;
   font-family: glacial, sans-serif;
-  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  animation: fadeIn 0.4s ease;
+}
+
+.login-alert i {
+  font-size: 20px;
+}
+
+/* Başarı */
+.login-alert.success {
+  background: #eafbf1;
+  color: #1b7a3d;
+  border: 2px solid #b5efcb;
+}
+
+/* Hata */
+.login-alert.error {
+  background: #fdeaea;
+  color: #b93838;
+  border: 2px solid #f8b4b4;
+}
+
+/* Fade-in animasyonu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Şifremi unuttum linki */
+.forgot-link {
+  text-align: center;
+  margin-top: 14px;
   font-size: 15px;
-  color: #000;
+  font-family: glacial, sans-serif;
   margin-top: 2px;
 }
 
 .forgot-link a {
   color: #000;
   text-decoration: underline;
-  transition: color 0.3s ease;
 }
 
 .forgot-link a:hover {
