@@ -99,3 +99,22 @@
     font-size: 30px;
   }
 }
+
+/* Şifremi Unuttum linki */
+.forgot-link {
+  font-family: glacial, sans-serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #000;
+  margin-top: 2px;
+}
+
+.forgot-link a {
+  color: #000;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.forgot-link a:hover {
+  color: #ff3131;
+}

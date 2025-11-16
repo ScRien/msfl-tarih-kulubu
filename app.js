@@ -15,6 +15,7 @@ import hesapRouter from "./routes/hesap.js";
 import publicProfile from "./routes/publicProfile.js";
 import handlebarsHelpers from "./helpers/handlebarsHelpers.js";
 import legalRouter from "./routes/legal.js";
+import sifreUnuttumRouter from "./routes/sifreUnuttum.js";
 
 const app = express();
 
@@ -82,17 +83,22 @@ app.use("/kullanici", kullaniciRouter);
 // 2) Hesap
 app.use("/hesap", hesapRouter);
 
-// 3) Blog
+// 3) Şifre Unuttum (BAĞIMSIZ)
+app.use("/sifre-unuttum", sifreUnuttumRouter);
+
+// 4) Blog
 app.use("/blog", blogs);
 
-// 4) Admin
+// 5) Admin
 app.use("/admin", admin);
 
-// 5) Statik sayfalar / anasayfa
+// 6) Statik sayfalar / Anasayfa
 app.use("/", router);
 
-// 6) PUBLIC PROFILE (EN SONA)
+// 7) Public profile (EN SONA)
 app.use("/", publicProfile);
+
+// 8) KVKK / Gizlilik / Kullanım Şartları
 app.use("/", legalRouter);
 
 app.use((req, res) => {
