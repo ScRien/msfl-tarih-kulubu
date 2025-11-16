@@ -98,5 +98,5 @@ app.use((req, res) => {
 });
 
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Server http://0.0.0.0:${PORT} portunda çalışıyor.`);
+  console.log(`Server http://0.0.0.0:${port} portunda çalışıyor.`);
 });
