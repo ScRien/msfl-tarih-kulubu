@@ -1,0 +1,32 @@
+<section class="login-section">
+  <div class="login-container">
+    <h2 class="login-title">Oturum Aç</h2>
+
+    {{#if error}}
+      <p class="auth-error">{{error}}</p>
+    {{/if}}
+
+    <form class="login-form" action="/kullanici/oturumAc" method="POST">
+      <input
+        type="text"
+        name="username"
+        placeholder="Kullanıcı Adı"
+        class="login-input"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Şifre"
+        class="login-input"
+        required
+      />
+      <button type="submit" class="login-button">Oturum Aç</button>
+    </form>
+
+    <p class="register-link">
+      Kayıt olmak için
+      <a href="/kullanici/kayitOl">tıklayın</a>
+    </p>
+  </div>
+</section>
