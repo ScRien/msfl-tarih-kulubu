@@ -99,6 +99,6 @@ app.use((req, res) => {
   res.status(404).render("pages/404");
 });
 
-app.listen(port, "127.0.0.1", () => {
-  console.log(`Server http://127.0.0.1:${port} portunda çalışıyor.`);
+app.listen(port, "0.0.0.1", () => {
+  console.log(`Server http://0.0.0.1:${port} portunda çalışıyor.`);
 });
