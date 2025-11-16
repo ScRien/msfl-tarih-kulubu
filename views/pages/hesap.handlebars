@@ -31,6 +31,7 @@
     <button class="sidebar-item" data-target="data-usage">Veri Kullanımı</button>
     <button class="sidebar-item" data-target="devices" disabled>Giriş Yapılan Cihazlar (Yakında)</button>
     <button class="sidebar-item danger" data-target="delete">Hesabı Sil</button>
+    <button class="sidebar-item" data-target="policies">Site Politikaları</button>
 
     <div class="sidebar-category">Gelişmiş Güvenlik</div>
     <button class="sidebar-item disabled">2FA Doğrulama (Yakında)</button>
@@ -367,8 +368,36 @@
         <button class="danger-btn">Hesabı Kalıcı Olarak Sil</button>
       </form>
     </div>
+    
+        <!-- SİTE POLİTİKALARI -->
+    <div class="content-box" id="policies">
+      <h2 class="title">Site Politikaları</h2>
+      <p class="desc">Platformumuzun gizlilik, veri politikası ve kullanım şartlarıyla ilgili tüm resmi bilgilere aşağıdan ulaşabilirsiniz.</p>
 
-  </main>
-</section>
+      <!-- KVKK -->
+      <div class="policy-card">
+        <h3 class="policy-title">📘 KVKK Aydınlatma Metni</h3>
+        <p>Kişisel verilerinizin hangi amaçlarla işlendiği, nasıl saklandığı ve yasal haklarınız hakkında detaylı bilgi içerir.</p>
+        <a href="/kvkk" target="_blank" class="policy-link">KVKK Metnini Aç →</a>
+      </div>
+
+      <!-- GİZLİLİK -->
+      <div class="policy-card">
+        <h3 class="policy-title">🔒 Gizlilik Politikası</h3>
+        <p>Verilerinizin güvenliği, gizlilik tedbirleri ve dijital koruma mekanizmaları hakkında resmi bilgilendirme sağlar.</p>
+        <a href="/gizlilik" target="_blank" class="policy-link">Gizlilik Politikasını Aç →</a>
+      </div>
+
+      <!-- KULLANIM ŞARTLARI -->
+      <div class="policy-card">
+        <h3 class="policy-title">📄 Kullanım Şartları</h3>
+        <p>Platformu kullanırken uymanız gereken kurallar, yükümlülükler ve haklarınızı açıklayan resmi metindir.</p>
+        <a href="/kullanim-sartlari" target="_blank" class="policy-link">Kullanım Şartlarını Aç →</a>
+      </div>
+
+    </div>
+
+    </main>
+  </section>
 
 <script src="/js/hesap.js"></script>

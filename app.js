@@ -14,6 +14,7 @@ import kullaniciRouter from "./routes/kullanici.js";
 import hesapRouter from "./routes/hesap.js";
 import publicProfile from "./routes/publicProfile.js";
 import handlebarsHelpers from "./helpers/handlebarsHelpers.js";
+import legalRouter from "./routes/legal.js";
 
 const app = express();
 
@@ -92,11 +93,12 @@ app.use("/", router);
 
 // 6) PUBLIC PROFILE (EN SONA)
 app.use("/", publicProfile);
+app.use("/", legalRouter);
 
 app.use((req, res) => {
   res.status(404).render("pages/404");
 });
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server http://0.0.0.0:${port} portunda çalışıyor.`);
+app.listen(port, "127.0.0.1", () => {
+  console.log(`Server http://127.0.0.1:${port} portunda çalışıyor.`);
 });

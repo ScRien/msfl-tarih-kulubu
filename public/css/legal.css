@@ -1,0 +1,80 @@
+/* Terms (KVKK – Gizlilik – Kullanım Şartları) linkleri */
+.terms-container a {
+  color: #cacaca;               /* profesyonel gri */
+  text-decoration: underline;    /* her zaman altı çizili */
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+/* Hover efekti */
+.terms-container a:hover {
+  color: #6a6a6a;               /* daha koyu gri */
+  text-decoration: underline;   /* underline sabit */
+}
+
+.legal-page {
+  padding: 60px 0;
+  background: #f9f9f9;
+}
+
+.container-legal {
+  width: min(900px, 90%);
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(0,0,0,0.08);
+}
+
+.legal-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.legal-page h2 {
+  font-size: 26px;
+  margin-top: 35px;
+  color: #333;
+  border-left: 6px solid #7a0e0e;
+  padding-left: 10px;
+}
+
+.legal-page h3 {
+  font-size: 20px;
+  margin-top: 20px;
+  color: #444;
+}
+
+.legal-page p {
+  line-height: 1.8;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
+}
+
+.legal-page ul {
+  margin-top: 10px;
+  padding-left: 25px;
+}
+
+.legal-page ul li {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .container-legal {
+    padding: 25px;
+  }
+  
+  .legal-title {
+    font-size: 28px;
+  }
+  
+  .legal-page h2 {
+    font-size: 22px;
+  }
+}
