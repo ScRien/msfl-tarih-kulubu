@@ -215,3 +215,18 @@
     font-size: 26px;
   }
 }
+
+/* Kayıt sayfası - KVKK / Gizlilik / Kullanım linkleri */
+.terms-container .terms-link,
+.terms-container .terms-link:visited {
+  color: #d8d8d8;           /* hafif gri */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-style: normal;       /* italik olmasın */
+}
+
+.terms-container .terms-link:hover {
+  color: #ffffff;
+  text-decoration-thickness: 2px;
+}

@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    const first = document.querySelector('.sidebar-item[data-target="profile"]');
+    const first = document.querySelector(
+      '.sidebar-item[data-target="profile"]'
+    );
     if (first) first.click();
   }
 
@@ -55,25 +57,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ===========================================================
-     ŞİFRE KISMI — Kod gönderildiyse doğrulama alanı aç
+     ŞİFRE SIFIRLAMA — FORM TABANLI
   ============================================================ */
-  const url = window.location.href;
 
-  // 1) Kod gönderildi → doğrulama kutusu açılır
-  if (url.includes("showVerify=1")) {
-    const verifyBox = document.getElementById("verifyBox");
-    if (verifyBox) {
+  const sendCodeForm = document.querySelector(
+    "#password form[action='/hesap/sifre-kod']"
+  );
+  const verifyBox = document.getElementById("verifyBox");
+  const newPasswordBox = document.getElementById("newPasswordBox");
+
+  // Kod gönderme
+  if (sendCodeForm) {
+    sendCodeForm.addEventListener("submit", () => {
       verifyBox.style.display = "block";
-      verifyBox.scrollIntoView({ behavior: "smooth" });
-    }
+      newPasswordBox.style.display = "none";
+    });
   }
 
-  // 2) Kullanıcı kodu doğruladı → yeni şifre kutusu açılır
-  if (url.includes("/hesap/sifre-yeni")) {
-    const newPassBox = document.getElementById("newPasswordBox");
-    if (newPassBox) {
-      newPassBox.style.display = "block";
-      newPassBox.scrollIntoView({ behavior: "smooth" });
-    }
+  // Eğer URL'de showVerify=1 varsa otomatik aç
+  if (window.location.search.includes("showVerify=1")) {
+    verifyBox.style.display = "block";
+    newPasswordBox.style.display = "none";
+    document.getElementById("password").scrollIntoView({ behavior: "smooth" });
   }
 });

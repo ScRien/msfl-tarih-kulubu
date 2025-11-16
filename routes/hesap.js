@@ -273,59 +273,34 @@ router.get("/sifre-yeni", auth, (req, res) => {
 router.post("/sifre-kod", auth, async (req, res) => {
   try {
     const user = await User.findById(req.session.userId);
+    if (!user) return res.redirect("/hesap?error=Kullanıcı+bulunamadı");
 
-    if (!user.email) {
-      return res.redirect("/hesap?error=E-posta+adresiniz+bulunamadı");
-    }
-
-    // 6 haneli kod
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const html = verificationMailTemplate(user.name, code);
 
-    // Kullanıcıya kaydet
-    user.resetCode = code;
-    user.resetCodeExpires = Date.now() + 5 * 60 * 1000; // 5 dakika
-    await user.save();
+    // Session'a kaydet
+    req.session.resetCode = code;
+    req.session.save();
 
-    // Mail gönder
-    await sendMail(user.email, "Tarih Kulübü • Şifre Doğrulama Kodu", html);
+    const html = `
+      <h2>MSFL Tarih Kulübü Doğrulama Kodu</h2>
+      <p>Sayın <b>${user.name} ${user.surname}</b>,</p>
+      <p>Şifre sıfırlama işleminiz için doğrulama kodunuz:</p>
+      <div style="font-size:28px;font-weight:bold;">${code}</div>
+      <p>Kod 10 dakika geçerlidir.</p>
+    `;
 
-    return res.redirect("/hesap?success=Kod+gönderildi&showVerify=1");
+    const ok = await sendMail(user.email, "Doğrulama Kodunuz", html);
+
+    if (!ok) {
+      return res.redirect("/hesap?error=Mail+gönderilemedi");
+    }
+
+    return res.redirect(
+      "/hesap?success=Doğrulama+kodu+gönderildi&showVerify=1"
+    );
   } catch (err) {
-    console.log("Mail send error:", err);
-    return res.redirect("/hesap?error=Kod+gönderilemedi");
-  }
-});
-
-router.post("/sifre-kod-dogrula", auth, async (req, res) => {
-  try {
-    const { code } = req.body;
-    const user = await User.findById(req.session.userId);
-
-    // Kod hiç istenmemişse
-    if (!user.resetCode || !user.resetCodeExpires) {
-      return res.redirect("/hesap?error=Kod+isteyin+lütfen");
-    }
-
-    // Süresi dolmuşsa
-    if (Date.now() > user.resetCodeExpires) {
-      user.resetCode = null;
-      user.resetCodeExpires = null;
-      await user.save();
-      return res.redirect("/hesap?error=Kodun+süresi+dolmuş");
-    }
-
-    // Kod yanlışsa
-    if (code.trim() !== user.resetCode) {
-      return res.redirect("/hesap?error=Kod+yanlış&showVerify=1");
-    }
-
-    // Kod doğru
-    req.session.allowPasswordChange = true;
-    return res.redirect("/hesap/sifre-yeni");
-  } catch (err) {
-    console.log(err);
-    return res.redirect("/hesap?error=Doğrulama+başarısız");
+    console.error(err);
+    return res.redirect("/hesap?error=Beklenmeyen+hata");
   }
 });
 
@@ -361,6 +336,23 @@ router.post("/sifre-yeni", auth, async (req, res) => {
     console.log(err);
     return res.redirect("/hesap?error=Şifre+değiştirilemedi");
   }
+});
+
+router.post("/sifre-kod-dogrula-form", auth, async (req, res) => {
+  const code = req.body.code;
+
+  if (!req.session.resetCode) {
+    return res.redirect("/hesap?error=Kod+talep+edilmedi&showVerify=1");
+  }
+
+  if (!code || code.trim() !== req.session.resetCode) {
+    return res.redirect("/hesap?error=Kod+yanlış&showVerify=1");
+  }
+
+  req.session.allowPasswordChange = true;
+  req.session.save();
+
+  return res.redirect("/hesap/sifre-yeni");
 });
 
 export default router;

@@ -1,19 +1,25 @@
-import nodemailer from "nodemailer";
-import "dotenv/config";
+import { Resend } from "resend";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendMail(to, subject, html) {
-  return transporter.sendMail({
-    from: `"Tarih Kulübü" <${process.env.MAIL_USER}>`,
-    to,
-    subject,
-    html,
-  });
+  try {
+    const { error } = await resend.emails.send({
+      from: "MSFL Tarih Kulübü <onboarding@resend.dev>",
+      to,
+      subject,
+      html,
+    });
+
+    if (error) {
+      console.error("Mail send error:", error);
+      return false;
+    }
+
+    return true;
+
+  } catch (err) {
+    console.error("Resend error:", err);
+    return false;
+  }
 }

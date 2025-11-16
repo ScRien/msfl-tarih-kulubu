@@ -213,7 +213,7 @@
       <div id="verifyBox" style="display:none; margin-top:20px;">
         <h3 class="subtitle">Doğrulama Kodu</h3>
 
-        <form action="/hesap/sifre-kod-dogrula" method="POST">
+        <form action="/hesap/sifre-kod-dogrula-form" method="POST">
           <input type="text" name="code" placeholder="6 haneli kodu girin" required class="input" />
 
           <button class="btn green" type="submit">
@@ -221,15 +221,13 @@
           </button>
         </form>
       </div>
-
-      <!-- 3) YENİ ŞİFRE FORMU -->
+            <!-- 3) YENİ ŞİFRE FORMU -->
       <div id="newPasswordBox" style="display:none; margin-top:25px;">
         <h3 class="subtitle">Yeni Şifre Oluştur</h3>
 
-        <form action="/hesap/sifre-degistir" method="POST">
-
-          <input type="password" name="newPassword" placeholder="Yeni Şifre" required class="input" />
-          <input type="password" name="newPassword2" placeholder="Yeni Şifre Tekrar" required class="input" />
+        <form action="/hesap/sifre-yeni" method="POST">
+          <input type="password" name="password1" placeholder="Yeni Şifre" required class="input" />
+          <input type="password" name="password2" placeholder="Yeni Şifre Tekrar" required class="input" />
 
           <button class="btn save" type="submit">
             <i class="fa-solid fa-unlock-keyhole"></i> Şifreyi Güncelle
